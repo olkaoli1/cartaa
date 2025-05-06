@@ -1,0 +1,20 @@
+plugins {
+    id 'java'
+}
+
+group   = 'ru.netology'
+version = '1.0-SNAPSHOT'
+
+repositories { mavenCentral() }
+
+dependencies {
+    testImplementation 'com.codeborne:selenide:6.19.0'
+    testImplementation 'org.junit.jupiter:junit-jupiter:5.10.2'
+    testImplementation 'io.github.bonigarcia:webdrivermanager:5.8.0'
+}
+
+test {
+    useJUnitPlatform()
+    // переключаем headed / headless одним флагом
+    systemProperty 'headless', System.getProperty('headless')
+}
