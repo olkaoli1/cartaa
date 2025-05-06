@@ -1,0 +1,23 @@
+name: tests
+
+on: [push, pull_request]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Start card-delivery app
+        run: |
+          nohup java -jar artifacts/app-card-delivery.jar >/dev/null 2>&1 &
+          for i in {1..15}; do nc -z localhost 9999 && break; sleep 1; done
+
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: 11
+
+      - name: Run tests (headless)
+        run: ./gradlew clean test -Pheadless=true
