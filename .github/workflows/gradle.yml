@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 name: tests
 on: [push, pull_request]
 
@@ -27,3 +28,6 @@ jobs:
         env:
           CHROME_DRIVER_PATH: /usr/local/bin/chromedriver
         run: ./gradlew clean test -Pheadless=true
+=======
+x
+>>>>>>> 4a5753b (ci: add GitHub Actions workflow)
