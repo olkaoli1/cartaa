@@ -10,7 +10,6 @@ repositories { mavenCentral() }
 dependencies {
     testImplementation 'com.codeborne:selenide:6.19.0'
     testImplementation 'org.junit.jupiter:junit-jupiter:5.10.2'
-    // WebDriverManager убрали — в CI используем готовый chromedriver
 }
 
 test {

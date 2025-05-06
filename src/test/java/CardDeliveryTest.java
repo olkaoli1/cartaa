@@ -4,8 +4,8 @@ import com.codeborne.selenide.Configuration;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import ru.netology.data.DataGenerator;
 import org.openqa.selenium.Keys;
+import ru.netology.data.DataGenerator;
 
 import java.time.Duration;
 
@@ -16,11 +16,11 @@ class CardDeliveryTest {
 
     @BeforeAll
     static void configure() {
-        // В CI путь к chromedriver задаёт шаг workflow, локально оставляем как есть
         if ("true".equals(System.getenv("CI"))) {
             System.setProperty("webdriver.chrome.driver", "/usr/local/bin/chromedriver");
         }
-        Configuration.headless = Boolean.getBoolean("headless");
+
+        Configuration.headless = Boolean.getBoolean("headless"); // headless=true в CI
         Configuration.browserSize = "1920x1080";
     }
 
@@ -31,7 +31,7 @@ class CardDeliveryTest {
 
     @Test
     void shouldSubmitIfAllFieldsValid() {
-        String date = DataGenerator.plusDays(4);
+        String date = DataGenerator.plusDays(4);           // ≥3 дня от сегодня
 
         $("[data-test-id=city] input").setValue("Казань");
 
@@ -39,7 +39,7 @@ class CardDeliveryTest {
         dateInput.doubleClick().sendKeys(Keys.DELETE);
         dateInput.setValue(date);
 
-        $("[data-test-id=name] input").setValue("Иван-Петров Сергей");
+        $("[data-test-id=name]  input").setValue("Иван-Петров Сергей");
         $("[data-test-id=phone] input").setValue("+79270000000");
         $("[data-test-id=agreement]").click();
         $$("button.button").findBy(text("Забронировать")).click();
