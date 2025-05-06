@@ -7,16 +7,13 @@ jobs:
 
     steps:
       - uses: actions/checkout@v4
-
       - name: Set up Chromedriver
-        uses: nanasess/setup-chromedriver@v2
-        with:
-          chromedriver-version: '135.0.7049.0'
+        uses: nanasess/setup-chromedriver@v2  
 
       - name: Start app
         run: |
           nohup java -jar artifacts/app-card-delivery.jar >/dev/null 2>&1 &
-          for i in {1..15}; do nc -z localhost 9999 && break; sleep 1; done
+          for i in {1..20}; do nc -z localhost 9999 && break; sleep 1; done
 
       - uses: actions/setup-java@v4
         with:
@@ -25,5 +22,5 @@ jobs:
 
       - name: Run tests (headless)
         env:
-          CHROME_DRIVER_PATH: /usr/local/bin/chromedriver
+          CHROME_DRIVER_PATH: /usr/local/bin/chromedriver  
         run: ./gradlew clean test -Pheadless=true
