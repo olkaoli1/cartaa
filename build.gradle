@@ -10,11 +10,10 @@ repositories { mavenCentral() }
 dependencies {
     testImplementation 'com.codeborne:selenide:6.19.0'
     testImplementation 'org.junit.jupiter:junit-jupiter:5.10.2'
-    testImplementation 'io.github.bonigarcia:webdrivermanager:5.8.0'
+    // WebDriverManager убрали — в CI используем готовый chromedriver
 }
 
 test {
     useJUnitPlatform()
-    // переключаем headed / headless одним флагом
     systemProperty 'headless', System.getProperty('headless')
 }

@@ -1,9 +1,9 @@
 package ru.netology.test;
 
 import com.codeborne.selenide.Configuration;
-import io.github.bonigarcia.wdm.WebDriverManager;
-import org.junit.jupiter.api.*;
-
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import ru.netology.data.DataGenerator;
 import org.openqa.selenium.Keys;
 
@@ -15,8 +15,11 @@ import static com.codeborne.selenide.Selenide.*;
 class CardDeliveryTest {
 
     @BeforeAll
-    static void setUpDriver() {
-        WebDriverManager.chromedriver().setup();
+    static void configure() {
+        // В CI путь к chromedriver задаёт шаг workflow, локально оставляем как есть
+        if ("true".equals(System.getenv("CI"))) {
+            System.setProperty("webdriver.chrome.driver", "/usr/local/bin/chromedriver");
+        }
         Configuration.headless = Boolean.getBoolean("headless");
         Configuration.browserSize = "1920x1080";
     }
