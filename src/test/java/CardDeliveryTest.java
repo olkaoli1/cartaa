@@ -16,14 +16,6 @@ class CardDeliveryTest {
 
     @BeforeAll
     static void configure() {
-        // В CI (GitHub Actions) переменная окружения CI = "true".
-        // Там action setup-chromedriver кладёт драйвер в /usr/local/bin/chromedriver —
-        // укажем Selenide путь к нему. Локально это условие ложно и путь не меняется.
-        if ("true".equals(System.getenv("CI"))) {
-            System.setProperty("webdriver.chrome.driver", "/usr/local/bin/chromedriver");
-        }
-
-        Configuration.headless    = Boolean.getBoolean("headless");  // -Pheadless=true в CI
         Configuration.browserSize = "1920x1080";
     }
 
@@ -36,7 +28,7 @@ class CardDeliveryTest {
     void shouldSubmitIfAllFieldsValid() {
         String date = DataGenerator.plusDays(4);
 
-        $("[data-test-id=city]  input").setValue("Казань");
+        $("[data-test-id=city] input").setValue("Казань");
 
         var dateInput = $("[data-test-id=date] input");
         dateInput.doubleClick().sendKeys(Keys.DELETE);
